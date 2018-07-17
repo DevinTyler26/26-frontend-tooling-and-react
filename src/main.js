@@ -16,8 +16,15 @@ class App extends React.Component {
       firstItems: [],
       secondItems: [],
       messageItems: [],
+      e: 'O<',
+      T: 'U ',
     };
     this.handleCounterDecrement = this.handleCounterDecrement.bind(this);
+  }
+
+  static defaultProps = {
+    e: ['O<', '>O', 'OO', 'oo', '><', '--'],
+    T: ['U ', 'W ', 'V ', '  '],
   }
 
     handleCounterIncrement = () => {
@@ -55,12 +62,16 @@ class App extends React.Component {
         const firstItems = previousState.firstItems.concat(this.state.first);
         const secondItems = previousState.secondItems.concat(this.state.second);
         const messageItems = this.getIntersection(firstItems, secondItems);
+        const e = this.state.e;     /*eslint-disable-line*/
+        const T = this.state.T;           /*eslint-disable-line*/          
         return {
           firstItems,
           secondItems,
           first: '',
           second: '',
           message: messageItems,
+          e,
+          T,
         };
       });
     }
@@ -80,6 +91,13 @@ class App extends React.Component {
     };
 
     render() {
+      const eyeOptions = this.props.e.map((e) => {
+        return <option key={e} value={e}>{ e }</option>;
+      });
+      const tongueOptions = this.props.T.map((T) => {
+        return <option key={T} value={T}>{ T }</option>;
+      });
+
       return (
         <div className="cowsay">
           <Header></Header>
@@ -98,6 +116,14 @@ class App extends React.Component {
               value={ this.state.second }
               onChange={ this.handleInputChange }
             />
+            <label htmlFor="e">Eyes</label>
+            <select ref={this.state.e} value={ this.state.e } name="e" onChange={ this.handleInputChange }>
+            { eyeOptions }
+            </select>
+            <label htmlFor="e">Tongue</label>
+            <select ref={this.state.T} value={ this.state.T } name="T" onChange={ this.handleInputChange }>
+            { tongueOptions }
+            </select>
             <button type="submit">Submit Cow</button>
           </form>
           <ul className="first-list">
@@ -114,8 +140,10 @@ class App extends React.Component {
             </ul>
             <pre>
               {
-                cowsay.say({
+                cowsay.think({
                   text: this.state.message,
+                  e: this.state.e,
+                  T: this.state.T,
                 })
               }
             </pre>
