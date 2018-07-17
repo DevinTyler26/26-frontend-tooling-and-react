@@ -60,3 +60,7 @@ Write a description of the project in your README.md
 * Add functionality where clicking a list item deletes that item and updates the state accordingly
 * Save your lists and any other relevant state properties to local storage so when you restart your app, that data persists on page reload
 * CSS it up! Or more accurately, SCSS it up. [Read SCSS docs](https://sass-lang.com/guide) and make your app look amazing. 
+
+
+## Documentation
+- This web app is showing how React works along with some js logic. When you input a message in the two fields, they will be put into list 1 and 2. If any of the values match between list 1 and list 2, those input will said by the cow! If no values match, the default text will stay there.
